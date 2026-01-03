@@ -54,7 +54,8 @@ export interface Task {
   jobId: string;
   order: number; // 1, 2, 3, 4
   
-  instruction: string; // What the client asks for
+  story: string; // What the client says (narrative)
+  guide: string; // What Chip the AI says (teaching)
   
   // Teaching
   teachesSkills: ExpertiseSkill[];

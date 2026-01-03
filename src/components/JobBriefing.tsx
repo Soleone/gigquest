@@ -33,7 +33,7 @@ export default function JobBriefing({ job, onStart }: Props) {
             {job.tasks.map((task, i) => (
               <li key={task.id} className="flex items-center gap-2">
                 <span className="text-gray-400">{i + 1}.</span>
-                <span>{task.instruction.split('\n')[0].slice(0, 60)}...</span>
+                <span>{task.story.split('\n')[0].slice(0, 60)}...</span>
               </li>
             ))}
           </ol>

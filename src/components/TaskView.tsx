@@ -73,7 +73,7 @@ export default function TaskView({ job, task }: Props) {
           <div>
             <h1 className="text-xl font-bold">{job.clientName}'s {job.title}</h1>
             <p className="text-sm text-gray-400">
-              Task {task.order}/{job.tasks.length}: {task.instruction.split('\n')[0].slice(0, 50)}
+              Task {task.order}/{job.tasks.length}: {task.story.split('\n')[0].slice(0, 50)}...
             </p>
           </div>
           <div className="text-right">
@@ -86,26 +86,52 @@ export default function TaskView({ job, task }: Props) {
       {/* Main content area */}
       <div className="flex-1 flex overflow-hidden">
         {/* Left: Instruction panel */}
-        <div className="w-1/3 bg-gray-800 p-6 overflow-y-auto border-r border-gray-700">
-          <h2 className="text-lg font-bold mb-4">Instructions</h2>
-          <div className="prose prose-invert">
-            <p className="whitespace-pre-line text-gray-300 leading-relaxed">
-              {task.instruction}
-            </p>
-          </div>
-          
-          {/* Goals info */}
-          <div className="mt-6">
-            <h3 className="text-sm font-bold text-gray-400 mb-2">
-              {task.tests.length === 1 ? 'Goal' : 'Goals'}
-            </h3>
-            <ul className="space-y-1">
-              {task.tests.map(test => (
-                <li key={test.id} className="text-sm text-gray-500">
-                  • {test.name}
-                </li>
-              ))}
-            </ul>
+        <div className="w-1/3 flex flex-col border-r border-gray-700 bg-gray-800">
+          <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            
+            {/* Client Section */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs uppercase tracking-wider text-gray-500 font-bold">Client</span>
+                <span className="text-sm font-bold text-amber-500">{job.clientName}</span>
+              </div>
+              <div className="bg-gray-900/50 p-4 rounded-lg border-l-4 border-amber-500">
+                <p className="whitespace-pre-line text-gray-200 leading-relaxed">
+                  "{task.story}"
+                </p>
+              </div>
+            </div>
+
+            {/* Guide Section */}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="text-xs uppercase tracking-wider text-gray-500 font-bold">Guide</span>
+                <span className="text-sm font-bold text-cyan-400">Chip 🤖</span>
+              </div>
+              <div className="bg-cyan-950/30 p-4 rounded-lg border border-cyan-900/50">
+                <div className="prose prose-invert prose-sm max-w-none">
+                  <p className="whitespace-pre-line text-cyan-100 leading-relaxed">
+                    {task.guide}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Goals info */}
+            <div>
+              <h3 className="text-sm font-bold text-gray-400 mb-2">
+                {task.tests.length === 1 ? 'Goal' : 'Goals'}
+              </h3>
+              <ul className="space-y-2">
+                {task.tests.map(test => (
+                  <li key={test.id} className="flex items-start gap-2 text-sm text-gray-300 bg-gray-900 p-2 rounded">
+                    <span className="text-green-500 mt-0.5">◎</span>
+                    <span>{test.name}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
           </div>
         </div>
         
