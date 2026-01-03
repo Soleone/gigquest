@@ -1,13 +1,15 @@
 'use client';
 
 import { Job, Task, ExpertiseSkill } from '@/types/game';
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { useGameStore } from '@/store/gameStore';
 import CodeEditor from './CodeEditor';
 import TestRunner, { TestRunnerHandle } from './TestRunner';
 import SuccessModal from './SuccessModal';
 import DebugTaskInfo from './DebugTaskInfo';
 import { FormatText } from '@/lib/formatText';
+import TypewriterText from './TypewriterText';
+import Image from 'next/image';
 
 interface Props {
   job: Job;
@@ -19,7 +21,12 @@ export default function TaskView({ job, task }: Props) {
   const starterCode = getStarterCode(task);
   const [code, setCode] = useState(starterCode);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [isBettySpeaking, setIsBettySpeaking] = useState(false);
   const testRunnerRef = useRef<TestRunnerHandle>(null);
+
+  const handleSpeakingChange = useCallback((speaking: boolean) => {
+    setIsBettySpeaking(speaking);
+  }, []);
 
   // Reset code when task changes
   useEffect(() => {
@@ -87,9 +94,22 @@ export default function TaskView({ job, task }: Props) {
                 <span className="text-xs uppercase tracking-wider text-gray-500 font-bold">Client</span>
                 <span className="text-sm font-bold text-amber-500">{job.clientName}</span>
               </div>
-              <div className="bg-gray-900/50 p-4 rounded-lg border-l-4 border-amber-500">
-                <p className="whitespace-pre-line text-gray-200 leading-relaxed italic">
-                  <FormatText text={task.story.trim()} />
+              <div className="bg-gray-900/50 p-4 rounded-lg border-l-4 border-amber-500 flex gap-4">
+                <div className="flex-shrink-0">
+                  <Image
+                    src={isBettySpeaking ? '/characters/betty-happy-speaking.png' : '/characters/betty-happy.png'}
+                    alt={job.clientName}
+                    width={176}
+                    height={184}
+                    className="rounded-lg"
+                  />
+                </div>
+                <p className="whitespace-pre-line text-gray-200 leading-relaxed italic flex-1">
+                  <TypewriterText
+                    text={task.story.trim()}
+                    speed={50}
+                    onSpeakingChange={handleSpeakingChange}
+                  />
                 </p>
               </div>
             </div>
