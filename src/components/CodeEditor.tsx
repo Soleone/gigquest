@@ -3,12 +3,14 @@
 import Editor, { OnMount } from '@monaco-editor/react';
 import { ExpertiseSkill } from '@/types/game';
 import { useEffect, useRef } from 'react';
+import type * as Monaco from 'monaco-editor';
 
 interface Props {
   value: string;
   onChange: (value: string) => void;
   onRun?: () => void;
   learnedSkills?: ExpertiseSkill[];
+  taskId?: string;
 }
 
 const SKILL_TO_KEYWORDS: Record<ExpertiseSkill, string[]> = {
@@ -21,12 +23,14 @@ const SKILL_TO_KEYWORDS: Record<ExpertiseSkill, string[]> = {
   'console.log': ['console', 'log'],
 };
 
-export default function CodeEditor({ value, onChange, onRun, learnedSkills = [] }: Props) {
-  const monacoRef = useRef<any>(null);
-  const completionProviderRef = useRef<any>(null);
+export default function CodeEditor({ value, onChange, onRun, learnedSkills = [], taskId }: Props) {
+  const monacoRef = useRef<typeof Monaco | null>(null);
+  const editorRef = useRef<Monaco.editor.IStandaloneCodeEditor | null>(null);
+  const completionProviderRef = useRef<Monaco.IDisposable | null>(null);
 
   const handleEditorDidMount: OnMount = (editor, monaco) => {
     monacoRef.current = monaco;
+    editorRef.current = editor;
 
     // Configure JS defaults to be very minimal
     monaco.languages.typescript.javascriptDefaults.setCompilerOptions({
@@ -43,6 +47,15 @@ export default function CodeEditor({ value, onChange, onRun, learnedSkills = [] 
 
     // Register completion provider
     registerCompletionProvider(monaco, learnedSkills);
+
+    // Focus and position cursor at end on mount
+    const model = editor.getModel();
+    if (model) {
+      const lineCount = model.getLineCount();
+      const lastLineLength = model.getLineLength(lineCount);
+      editor.setPosition({ lineNumber: lineCount, column: lastLineLength + 1 });
+      editor.focus();
+    }
   };
 
   const registerCompletionProvider = (monaco: any, skills: ExpertiseSkill[]) => {
@@ -80,6 +93,22 @@ export default function CodeEditor({ value, onChange, onRun, learnedSkills = [] 
       registerCompletionProvider(monacoRef.current, learnedSkills);
     }
   }, [learnedSkills]);
+
+  // Focus and position cursor when task changes
+  useEffect(() => {
+    const editor = editorRef.current;
+    if (editor) {
+      setTimeout(() => {
+        const model = editor.getModel();
+        if (model) {
+          const lineCount = model.getLineCount();
+          const lastLineLength = model.getLineLength(lineCount);
+          editor.setPosition({ lineNumber: lineCount, column: lastLineLength + 1 });
+          editor.focus();
+        }
+      }, 100);
+    }
+  }, [taskId]);
 
   return (
     <Editor

@@ -71,13 +71,19 @@ export const useGameStore = create<GameState>()(
 
         // Find the previous task in the job
         const prevTask = job.tasks.find(t => t.order === task.order - 1);
+        let code = task.starterCode;
+
         if (prevTask && player.taskCode[prevTask.id]) {
           // Use the user's code from the previous task
-          return player.taskCode[prevTask.id];
+          code = player.taskCode[prevTask.id];
         }
 
-        // Fall back to the default starter code
-        return task.starterCode;
+        // Ensure code ends with newline so cursor starts on fresh line
+        if (!code.endsWith('\n')) {
+          code += '\n';
+        }
+
+        return code;
       },
 
       resetProgress: () => {

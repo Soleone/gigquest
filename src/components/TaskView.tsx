@@ -128,11 +128,12 @@ export default function TaskView({ job, task }: Props) {
         {/* Right: Code editor + output */}
         <div className="flex-1 flex flex-col">
           <div className="flex-1">
-            <CodeEditor 
-              value={code} 
-              onChange={setCode} 
+            <CodeEditor
+              value={code}
+              onChange={setCode}
               onRun={() => testRunnerRef.current?.run()}
               learnedSkills={learnedSkills}
+              taskId={task.id}
             />
           </div>
           
