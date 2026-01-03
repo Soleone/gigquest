@@ -1,6 +1,7 @@
 'use client';
 
 import { Task, Job } from '@/types/game';
+import { FormatText } from '@/lib/formatText';
 
 interface Props {
   task: Task;
@@ -24,7 +25,7 @@ export default function SuccessModal({ task, job, onNext, isLastTask }: Props) {
         {isLastTask ? (
           <div className="bg-gray-900 rounded p-4 mb-6">
             <p className="text-gray-300 italic whitespace-pre-line">
-              "{job.successMessage}"
+              <FormatText text={job.successMessage.trim()} />
             </p>
             <p className="text-gray-500 text-right mt-2">- {job.clientName}</p>
           </div>

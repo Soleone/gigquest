@@ -1,6 +1,7 @@
 'use client';
 
 import { Job } from '@/types/game';
+import { FormatText } from '@/lib/formatText';
 
 interface Props {
   job: Job;
@@ -23,7 +24,9 @@ export default function JobBriefing({ job, onStart }: Props) {
         
         {/* Briefing */}
         <div className="bg-gray-800 rounded-lg p-6 mb-6 whitespace-pre-line">
-          <p className="text-lg leading-relaxed">{job.briefing}</p>
+          <p className="text-lg leading-relaxed">
+            <FormatText text={job.briefing} />
+          </p>
         </div>
         
         {/* Task list */}

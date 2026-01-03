@@ -1,0 +1,84 @@
+id: job-001-bettys-bakery
+title: Daily Sales Tracker
+clientName: Betty
+clientPersonality: warm
+difficulty: 1
+estimatedTime: 15
+description: Help Betty track her daily bakery sales and calculate profit.
+
+briefing: |
+  Oh! Someone responded! Thank goodness...
+
+  I run a small bakery down on Main Street. I'm not very good with computers, but my nephew said I should track my daily numbers.
+
+  I just need help with some simple calculations. Nothing fancy! Just... storing numbers and doing basic math.
+
+  Can you help me?
+
+successMessage: |
+  Oh my goodness, thank you so much! This is wonderful!
+
+  Here's your payment. You did such a great job - my friend Mario who runs the pizza shop needs help too. Can I refer you to him?
+
+  *You completed your first gig!*
+
+tasks:
+  task-001-store-sales:
+    story: |
+      I counted today's receipts. We made $450 in sales today.
+
+      I need to write that number down somewhere safe so I don't forget it.
+    guide: |
+      Beep boop! I'm Chip, your AI coding assistant.
+
+      Betty needs to remember a number. In JavaScript, we use **variables** to store data.
+
+      Use the keyword `let` followed by the name `sales` to create a variable, and assign it the value `450`.
+
+  task-002-update-sales:
+    story: |
+      Oh dear, I missed a receipt under the register!
+
+      It wasn't $450, it was actually $460.
+
+      Can you fix that number for me?
+    guide: |
+      Mistakes happen! Since we used `let`, we can change (or 'mutate') the value.
+
+      You don't need to write `let` again (that's only for creating new variables).
+
+      Just type the variable name `sales` and assign it the new value `460`.
+
+  task-003-store-costs:
+    story: |
+      Great! Now I also need to track my spending.
+
+      Today I spent $180 on ingredients and supplies. Can you write that down too?
+    guide: |
+      New data means a new variable!
+
+      Create a variable named `costs` using `let` and set it to `180`.
+
+  task-004-calculate-profit:
+    story: |
+      Perfect! Now here's the important part...
+
+      I need to know my profit. That's just what I made in sales minus what I spent on costs.
+    guide: |
+      Computers are great at math!
+
+      Create a variable named `profit`.
+
+      Instead of typing the numbers again, you can do math with the variables themselves: `sales - costs`.
+
+  task-005-const-rent:
+    story: |
+      One last thing! My rent is always the same: $2000. It never changes, month after month.
+
+      Can we put that in the system so it's safe?
+    guide: |
+      Betty says this number never changes.
+
+      For values that shouldn't change (constants), we use the keyword `const` instead of `let`.
+
+      Declare `rent` using `const` and set it to `2000`.

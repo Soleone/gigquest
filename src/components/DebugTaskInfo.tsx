@@ -2,6 +2,7 @@
 
 import { Task } from '@/types/game';
 import { useState } from 'react';
+import { useGameStore } from '@/store/gameStore';
 
 interface Props {
   task: Task;
@@ -9,17 +10,29 @@ interface Props {
 
 export default function DebugTaskInfo({ task }: Props) {
   const [isOpen, setIsOpen] = useState(false);
+  const { resetProgress } = useGameStore();
   const isDev = process.env.NODE_ENV === 'development';
+
+  const handleReset = () => {
+    resetProgress();
+    window.location.reload();
+  };
 
   if (!isDev) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 z-50">
+    <div className="fixed bottom-4 left-4 z-50 flex gap-2">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold py-1 px-3 rounded shadow-lg border border-purple-500"
       >
         {isOpen ? 'Hide Debug' : 'Debug Task'}
+      </button>
+      <button
+        onClick={handleReset}
+        className="bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-1 px-3 rounded shadow-lg border border-red-500"
+      >
+        Reset Progress
       </button>
 
       {isOpen && (

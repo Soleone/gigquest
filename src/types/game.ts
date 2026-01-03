@@ -21,12 +21,15 @@ export type TestType = 'output' | 'variable' | 'custom';
 export interface PlayerState {
   id: string;
   username: string;
-  
+
   // Progression (simplified for Phase 1)
   completedTasks: string[]; // Task IDs
   currentJobId: string | null;
   currentTaskId: string | null;
-  
+
+  // Store user's code for each completed task
+  taskCode: Record<string, string>;
+
   // Future: cash, reputation, expertise tracking
 }
 

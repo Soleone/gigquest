@@ -16,6 +16,7 @@ export default function JobPage() {
     setIsHydrated(true);
   }, []);
 
+
   if (!isHydrated) {
     return <div className="min-h-screen bg-gray-900 text-white p-8">Loading...</div>;
   }

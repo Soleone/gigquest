@@ -1,7 +1,7 @@
 'use client';
 
 import { Test, TestResult } from '@/types/game';
-import { useState, forwardRef, useImperativeHandle } from 'react';
+import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { executeCode, runTests } from '@/lib/codeRunner';
 
 export interface TestRunnerHandle {
@@ -19,6 +19,13 @@ const TestRunner = forwardRef<TestRunnerHandle, Props>(({ code, tests, onSuccess
   const [output, setOutput] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isRunning, setIsRunning] = useState(false);
+
+  // Reset state when task changes (tests prop changes)
+  useEffect(() => {
+    setResults([]);
+    setOutput([]);
+    setError(null);
+  }, [tests]);
   
   const handleRun = () => {
     setIsRunning(true);

@@ -5,12 +5,13 @@ import { ALL_JOBS } from '@/data/jobs';
 
 interface GameState {
   player: PlayerState;
-  
+
   // Actions
-  completeTask: (taskId: string) => void;
+  completeTask: (taskId: string, code: string) => void;
   setCurrentTask: (jobId: string, taskId: string) => void;
   getCurrentJob: () => Job | null;
   getCurrentTask: () => Task | null;
+  getStarterCode: (task: Task) => string;
   resetProgress: () => void;
 }
 
@@ -19,7 +20,8 @@ const initialPlayer: PlayerState = {
   username: 'Developer',
   completedTasks: [],
   currentJobId: 'job-001-bettys-bakery', // Start directly in Betty's job
-  currentTaskId: 'task-001-store-sales'
+  currentTaskId: 'task-001-store-sales',
+  taskCode: {},
 };
 
 export const useGameStore = create<GameState>()(
@@ -27,11 +29,15 @@ export const useGameStore = create<GameState>()(
     (set, get) => ({
       player: initialPlayer,
       
-      completeTask: (taskId: string) => {
+      completeTask: (taskId: string, code: string) => {
         set((state) => ({
           player: {
             ...state.player,
-            completedTasks: [...state.player.completedTasks, taskId]
+            completedTasks: [...state.player.completedTasks, taskId],
+            taskCode: {
+              ...state.player.taskCode,
+              [taskId]: code,
+            },
           }
         }));
       },
@@ -57,14 +63,30 @@ export const useGameStore = create<GameState>()(
         if (!job) return null;
         return job.tasks.find(t => t.id === player.currentTaskId) || null;
       },
-      
+
+      getStarterCode: (task: Task) => {
+        const { player } = get();
+        const job = ALL_JOBS.find(j => j.id === task.jobId);
+        if (!job) return task.starterCode;
+
+        // Find the previous task in the job
+        const prevTask = job.tasks.find(t => t.order === task.order - 1);
+        if (prevTask && player.taskCode[prevTask.id]) {
+          // Use the user's code from the previous task
+          return player.taskCode[prevTask.id];
+        }
+
+        // Fall back to the default starter code
+        return task.starterCode;
+      },
+
       resetProgress: () => {
         set({ player: initialPlayer });
       }
     }),
     {
       name: 'gigquest-storage',
-      version: 1
+      version: 2,
     }
   )
 );

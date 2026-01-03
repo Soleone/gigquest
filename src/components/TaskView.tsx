@@ -7,6 +7,7 @@ import CodeEditor from './CodeEditor';
 import TestRunner, { TestRunnerHandle } from './TestRunner';
 import SuccessModal from './SuccessModal';
 import DebugTaskInfo from './DebugTaskInfo';
+import { FormatText } from '@/lib/formatText';
 
 interface Props {
   job: Job;
@@ -14,18 +15,19 @@ interface Props {
 }
 
 export default function TaskView({ job, task }: Props) {
-  const [code, setCode] = useState(task.starterCode);
+  const { completeTask, setCurrentTask, player, getStarterCode } = useGameStore();
+  const starterCode = getStarterCode(task);
+  const [code, setCode] = useState(starterCode);
   const [showSuccess, setShowSuccess] = useState(false);
-  const { completeTask, setCurrentTask, player } = useGameStore();
   const testRunnerRef = useRef<TestRunnerHandle>(null);
 
   // Reset code when task changes
   useEffect(() => {
-    setCode(task.starterCode);
-  }, [task.id, task.starterCode]);
-  
+    setCode(getStarterCode(task));
+  }, [task.id, getStarterCode]);
+
   const handleSuccess = () => {
-    completeTask(task.id);
+    completeTask(task.id, code);
     setShowSuccess(true);
   };
   
@@ -56,21 +58,6 @@ export default function TaskView({ job, task }: Props) {
     return Array.from(skills);
   }, [job.tasks, player.completedTasks, task.teachesSkills]);
 
-  // Helper to render backticks as <code> blocks from JSON strings
-  const renderGuideText = (text: string) => {
-    const parts = text.split(/(`[^`]+`)/);
-    return parts.map((part, i) => {
-      if (part.startsWith('`') && part.endsWith('`')) {
-        return (
-          <code key={i} className="bg-cyan-900/50 text-cyan-200 px-1 rounded font-mono text-xs border border-cyan-700/30">
-            {part.slice(1, -1)}
-          </code>
-        );
-      }
-      return part;
-    });
-  };
-  
   return (
     <div className="h-screen flex flex-col bg-gray-900 text-white">
       {/* Header */}
@@ -102,7 +89,7 @@ export default function TaskView({ job, task }: Props) {
               </div>
               <div className="bg-gray-900/50 p-4 rounded-lg border-l-4 border-amber-500">
                 <p className="whitespace-pre-line text-gray-200 leading-relaxed italic">
-                  "{task.story}"
+                  <FormatText text={task.story.trim()} />
                 </p>
               </div>
             </div>
@@ -115,7 +102,7 @@ export default function TaskView({ job, task }: Props) {
               </div>
               <div className="bg-cyan-950/30 p-4 rounded-lg border border-cyan-900/50">
                 <div className="text-cyan-100 leading-relaxed whitespace-pre-line text-sm">
-                  {renderGuideText(task.guide)}
+                  <FormatText text={task.guide} />
                 </div>
               </div>
             </div>
