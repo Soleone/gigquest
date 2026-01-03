@@ -35,12 +35,9 @@ export default function TaskView({ job, task }: Props) {
     
     if (nextTask) {
       setCurrentTask(job.id, nextTask.id);
-      // Code reset handled by useEffect
       setShowSuccess(false);
     } else {
-      // Job complete - show final success
       setShowSuccess(false);
-      // TODO: Show job completion screen or redirect
     }
   };
   
@@ -48,22 +45,31 @@ export default function TaskView({ job, task }: Props) {
     id => job.tasks.some(t => t.id === id)
   ).length;
 
-  // Calculate learned skills for autocomplete whitelist
   const learnedSkills = useMemo(() => {
     const skills = new Set<ExpertiseSkill>();
-    
-    // Skills from completed tasks
     job.tasks.forEach(t => {
       if (player.completedTasks.includes(t.id)) {
         t.teachesSkills.forEach(s => skills.add(s));
       }
     });
-
-    // Skills from the current task
     task.teachesSkills.forEach(s => skills.add(s));
-
     return Array.from(skills);
   }, [job.tasks, player.completedTasks, task.teachesSkills]);
+
+  // Helper to render backticks as <code> blocks from JSON strings
+  const renderGuideText = (text: string) => {
+    const parts = text.split(/(`[^`]+`)/);
+    return parts.map((part, i) => {
+      if (part.startsWith('`') && part.endsWith('`')) {
+        return (
+          <code key={i} className="bg-cyan-900/50 text-cyan-200 px-1 rounded font-mono text-xs border border-cyan-700/30">
+            {part.slice(1, -1)}
+          </code>
+        );
+      }
+      return part;
+    });
+  };
   
   return (
     <div className="h-screen flex flex-col bg-gray-900 text-white">
@@ -85,7 +91,6 @@ export default function TaskView({ job, task }: Props) {
       
       {/* Main content area */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Left: Instruction panel */}
         <div className="w-1/3 flex flex-col border-r border-gray-700 bg-gray-800">
           <div className="flex-1 overflow-y-auto p-6 space-y-6">
             
@@ -96,7 +101,7 @@ export default function TaskView({ job, task }: Props) {
                 <span className="text-sm font-bold text-amber-500">{job.clientName}</span>
               </div>
               <div className="bg-gray-900/50 p-4 rounded-lg border-l-4 border-amber-500">
-                <p className="whitespace-pre-line text-gray-200 leading-relaxed">
+                <p className="whitespace-pre-line text-gray-200 leading-relaxed italic">
                   "{task.story}"
                 </p>
               </div>
@@ -109,10 +114,8 @@ export default function TaskView({ job, task }: Props) {
                 <span className="text-sm font-bold text-cyan-400">Chip 🤖</span>
               </div>
               <div className="bg-cyan-950/30 p-4 rounded-lg border border-cyan-900/50">
-                <div className="prose prose-invert prose-sm max-w-none">
-                  <p className="whitespace-pre-line text-cyan-100 leading-relaxed">
-                    {task.guide}
-                  </p>
+                <div className="text-cyan-100 leading-relaxed whitespace-pre-line text-sm">
+                  {renderGuideText(task.guide)}
                 </div>
               </div>
             </div>
