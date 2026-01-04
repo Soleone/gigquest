@@ -10,7 +10,7 @@
         "tests": [
           {
             "id": "test-001-sales-exists",
-            "name": "Sales variable exists",
+            "name": "Store sales variable",
             "description": "Check if sales variable is defined",
             "type": "variable",
             "expectedVariables": { "sales": 450 },
@@ -28,7 +28,7 @@
         "tests": [
           {
             "id": "test-002-sales-updated",
-            "name": "Sales updated to 460",
+            "name": "Update sales to 460",
             "description": "Check if sales variable is 460",
             "type": "variable",
             "expectedVariables": { "sales": 460 },
@@ -46,7 +46,7 @@
         "tests": [
           {
             "id": "test-003-costs-exists",
-            "name": "Costs variable exists",
+            "name": "Store costs variable",
             "description": "Check if costs variable is defined",
             "type": "variable",
             "expectedVariables": { "sales": 460, "costs": 180 },
@@ -64,7 +64,7 @@
         "tests": [
           {
             "id": "test-004-profit-correct",
-            "name": "Profit calculated correctly",
+            "name": "Calculate profit",
             "description": "Check if profit equals sales - costs",
             "type": "variable",
             "expectedVariables": { "sales": 460, "costs": 180, "profit": 280 },
@@ -82,7 +82,7 @@
         "tests": [
           {
             "id": "test-005-rent-defined",
-            "name": "Rent defined with const",
+            "name": "Define rent with const",
             "description": "Check if rent variable is defined as a constant",
             "type": "custom",
             "validationCode": "if (!variables.rent) return false;\nif (variables.rent !== 2000) return false;\nif (declarations['rent'] !== 'const') return false;\nreturn true;",
