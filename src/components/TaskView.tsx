@@ -7,9 +7,7 @@ import CodeEditor from './CodeEditor';
 import TestRunner, { TestRunnerHandle } from './TestRunner';
 import SuccessModal from './SuccessModal';
 import DebugTaskInfo from './DebugTaskInfo';
-import { FormatText } from '@/lib/formatText';
-import TypewriterText from './TypewriterText';
-import Image from 'next/image';
+import CharacterDialogue from './CharacterDialogue';
 
 interface Props {
   job: Job;
@@ -21,16 +19,17 @@ export default function TaskView({ job, task }: Props) {
   const starterCode = getStarterCode(task);
   const [code, setCode] = useState(starterCode);
   const [showSuccess, setShowSuccess] = useState(false);
-  const [isBettySpeaking, setIsBettySpeaking] = useState(false);
+  const [isBettyDone, setIsBettyDone] = useState(false);
   const testRunnerRef = useRef<TestRunnerHandle>(null);
 
-  const handleSpeakingChange = useCallback((speaking: boolean) => {
-    setIsBettySpeaking(speaking);
+  const handleBettyComplete = useCallback(() => {
+    setIsBettyDone(true);
   }, []);
 
-  // Reset code when task changes
+  // Reset code and dialogue state when task changes
   useEffect(() => {
     setCode(getStarterCode(task));
+    setIsBettyDone(false);
   }, [task.id, getStarterCode]);
 
   const handleSuccess = () => {
@@ -94,37 +93,35 @@ export default function TaskView({ job, task }: Props) {
                 <span className="text-xs uppercase tracking-wider text-gray-500 font-bold">Client</span>
                 <span className="text-sm font-bold text-amber-500">{job.clientName}</span>
               </div>
-              <div className="bg-gray-900/50 p-4 rounded-lg border-l-4 border-amber-500 flex gap-4">
-                <div className="flex-shrink-0">
-                  <Image
-                    src={isBettySpeaking ? '/characters/betty-happy-speaking.png' : '/characters/betty-happy.png'}
-                    alt={job.clientName}
-                    width={176}
-                    height={184}
-                    className="rounded-lg"
-                  />
-                </div>
-                <p className="whitespace-pre-line text-gray-200 leading-relaxed italic flex-1">
-                  <TypewriterText
-                    text={task.story.trim()}
-                    speed={50}
-                    onSpeakingChange={handleSpeakingChange}
-                  />
-                </p>
-              </div>
+              <CharacterDialogue
+                name={job.clientName}
+                text={task.story}
+                portraitBase="/characters/betty-happy"
+                width={176}
+                height={184}
+                onComplete={handleBettyComplete}
+                italic
+              />
             </div>
 
             {/* Guide Section */}
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <span className="text-xs uppercase tracking-wider text-gray-500 font-bold">Guide</span>
-                <span className="text-sm font-bold text-cyan-400">Chip 🤖</span>
+                <span className="text-sm font-bold text-cyan-400">Chip</span>
               </div>
-              <div className="bg-cyan-950/30 p-4 rounded-lg border border-cyan-900/50">
-                <div className="text-cyan-100 leading-relaxed whitespace-pre-line text-sm">
-                  <FormatText text={task.guide} />
-                </div>
-              </div>
+              <CharacterDialogue
+                name="Chip"
+                text={task.guide}
+                portraitBase="/characters/chip-happy"
+                width={176}
+                height={192}
+                enabled={isBettyDone}
+                labelColor="text-cyan-400"
+                borderColor="border-cyan-900/50"
+                bgColor="bg-cyan-950/30"
+                textColor="text-cyan-100"
+              />
             </div>
 
             {/* Goals info */}
