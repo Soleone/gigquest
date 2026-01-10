@@ -8,6 +8,8 @@
 
 ## Quick Start for AI Agents
 
+Important: Use 'bd' (beads) for task tracking.
+
 Welcome to **Gig Quest**! This file provides essential context for AI coding assistants working on this project.
 
 ### What You're Working On
