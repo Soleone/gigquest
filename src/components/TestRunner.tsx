@@ -3,6 +3,8 @@
 import { Test, TestResult } from '@/types/game';
 import { useState, useEffect, forwardRef, useImperativeHandle } from 'react';
 import { executeCode, runTests } from '@/lib/codeRunner';
+import { Button } from '@/components/ui/button';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 
 export interface TestRunnerHandle {
   run: () => void;
@@ -67,13 +69,13 @@ const TestRunner = forwardRef<TestRunnerHandle, Props>(({ code, tests, onSuccess
     <div className="h-full flex flex-col">
       {/* Controls */}
       <div className="p-3 bg-gray-900 border-b border-gray-700 flex items-center gap-3">
-        <button
+        <Button
           onClick={handleRun}
           disabled={isRunning}
-          className="bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white font-bold py-2 px-4 rounded transition-colors"
+          className="bg-green-600 hover:bg-green-700 disabled:bg-gray-600 text-white"
         >
           {isRunning ? 'Running...' : 'Finish'}
-        </button>
+        </Button>
         
         {results.length > 0 && (
           <div className="flex items-center gap-2">
@@ -102,10 +104,10 @@ const TestRunner = forwardRef<TestRunnerHandle, Props>(({ code, tests, onSuccess
         
         {/* Error */}
         {error && (
-          <div className="mb-4 p-3 bg-red-900/20 border border-red-500 rounded">
-            <div className="text-red-400 font-bold mb-1">Error:</div>
-            <div className="text-red-300">{error}</div>
-          </div>
+          <Alert variant="destructive" className="mb-4">
+            <AlertTitle>Error</AlertTitle>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
         )}
         
         {/* Goal status */}

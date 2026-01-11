@@ -2,6 +2,7 @@
 
 import { Job } from '@/types/game';
 import { FormatText } from '@/lib/formatText';
+import { Button } from '@/components/ui/button';
 
 interface Props {
   job: Job;
@@ -42,12 +43,13 @@ export default function JobBriefing({ job, onStart }: Props) {
           </ol>
         </div>
         
-        <button
+        <Button
           onClick={onStart}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors"
+          size="lg"
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white"
         >
           Start Job
-        </button>
+        </Button>
       </div>
     </div>
   );
