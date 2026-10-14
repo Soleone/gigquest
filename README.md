@@ -1,15 +1,10 @@
 # Gig Quest
 
-**"Code for Rent: Your Dev Origin Story"**
+Learn JavaScript by taking freelance gigs to make rent. Clients like Betty the baker bring you real problems, Chip the robot guide explains the idea, and you solve each task with real code in the editor that powers VS Code, checked the moment you finish.
 
-A story-driven educational game where you learn JavaScript by taking freelance programming gigs to make rent.
+**[Play it in your browser](https://gigquest.soleone.xyz)**, no sign-up: Betty's first job is five short tasks.
 
-![Status](https://img.shields.io/badge/status-active%20development-brightgreen)
-![Platform](https://img.shields.io/badge/platform-web%20browser-blue)
-![Tech](https://img.shields.io/badge/Next.js-16-black)
-![License](https://img.shields.io/badge/license-MIT-green)
-
----
+![Betty's first job: the briefing, Betty and Chip explaining the task, the answer typed into the editor and passed, then the next task](demo/media/demo.webp)
 
 ## 🎮 What is Gig Quest?
 
@@ -40,7 +35,7 @@ Traditional coding tutorials are boring. Game Dev Story lets you "pretend" to pr
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/gigquest.git
+git clone https://github.com/Soleone/gigquest.git
 cd gigquest
 
 # Install dependencies

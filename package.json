@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "media:capture": "node demo/capture.mjs"
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",
@@ -23,6 +24,7 @@
     "zustand": "^5.0.9"
   },
   "devDependencies": {
+    "@soleone/showcase": "github:Soleone/showcase#658b1b5",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

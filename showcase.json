@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/Soleone/showcase/main/schema/showcase.schema.json",
+  "title": "Gig Quest",
+  "pitch": "Learn JavaScript by taking freelance gigs to make rent, writing real code for clients in a story.",
+  "description": "A story-driven coding game: clients like Betty the baker bring small real problems, Chip the robot guide explains the concept, and you solve each task in a Monaco editor that runs your code and checks it against the goal.",
+  "kind": "web-app",
+  "stage": "prototype",
+  "year": 2026,
+  "tech": [
+    "TypeScript",
+    "Next.js",
+    "React",
+    "Monaco"
+  ],
+  "repo": "https://github.com/Soleone/gigquest",
+  "live": "https://gigquest.soleone.xyz",
+  "media": {
+    "hero": "demo/media/hero.png",
+    "motion": "demo/media/demo.webp",
+    "capture": "npm run media:capture"
+  },
+  "demo": {
+    "strategy": "hosted",
+    "local": "npm run dev",
+    "externals": []
+  }
+}
