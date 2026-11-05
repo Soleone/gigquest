@@ -24,6 +24,87 @@ Traditional coding tutorials are boring. Game Dev Story lets you "pretend" to pr
 
 ---
 
+## 🎮 Live Demo
+
+Coming soon at [gigquest.dev](https://gigquest.dev)
+
+---
+
+## 🎯 Core Features
+
+### 🖥️ Professional Code Editor
+- Monaco editor (VSCode engine) with full syntax highlighting
+- Real-time error detection and autocomplete
+- Standard keyboard shortcuts (Ctrl+C/V/Z, etc.)
+- <100ms code execution feedback
+
+### 📖 Visual Novel Presentation
+- Phoenix Wright-style character portraits and dialogue
+- Personality-driven storytelling (Betty is warm, Mario is enthusiastic)
+- Chip the AI teaching companion explains concepts through narrative context
+- Memorable clients with real problems to solve
+
+### 🎓 Real Learning Outcomes
+- Write JavaScript that actually executes (no toy language)
+- Scale from variables to complete applications
+- Learn professional development patterns
+- Build a portfolio of projects by the end
+
+### 📊 Progression Systems
+- **Money** - Earn cash to make rent, unlock new opportunities
+- **Reputation** - Build credibility to access higher-tier clients
+- **Expertise** - Granular skill tracking (const, let, loops, functions, etc.)
+
+---
+
+## 🎨 Design Pillars
+
+These five pillars guide all development decisions:
+
+1. **Authentic Code Editor** - Monaco mimics professional workflows
+2. **Real JavaScript** - Executable code teaches transferable skills
+3. **Visual Novel Presentation** - Phoenix Wright-style character-driven storytelling
+4. **Pro Developer Teaching** - Industry-standard practices, expert pedagogy
+5. **Concise Gameplay** - Tight loops, clear goals, satisfying progress
+
+---
+
+## 🎯 Target Audience
+
+**Age:** All ages (13+ for reading comprehension)
+**Experience:** Complete beginners to expert developers seeking fresh perspective
+**Motivation:**
+- Want to become a programmer (career change, exploration)
+- Tried tutorials but found them boring
+- Curious what it feels like to code
+- Want narrative motivation and context
+- Experienced devs seeking "beginner's mind" and opinionated patterns
+
+---
+
+## 🏗️ Tech Stack
+
+| Category | Technology |
+|----------|-----------|
+| **Framework** | Next.js 16 (App Router) |
+| **Language** | TypeScript (strict mode) |
+| **UI** | React 19, Tailwind CSS 4 |
+| **Code Editor** | Monaco Editor |
+| **State Management** | Zustand |
+| **Content** | YAML (narrative) + JSON (technical) |
+| **Deployment** | Vercel (web browser) |
+
+---
+
+## 📊 Performance Targets
+
+- **60fps** UI interactions
+- **<100ms** code execution feedback
+- **<3s** initial page load
+- **<2s** Monaco editor ready
+
+---
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -57,47 +138,6 @@ Open [http://localhost:3000](http://localhost:3000) to start coding!
 
 ---
 
-## 🎯 Core Features
-
-### 🖥️ Professional Code Editor
-- Monaco editor (VSCode engine) with full syntax highlighting
-- Real-time error detection and autocomplete
-- Standard keyboard shortcuts (Ctrl+C/V/Z, etc.)
-- <100ms code execution feedback
-
-### 📖 Visual Novel Presentation
-- Phoenix Wright-style character portraits and dialogue
-- Personality-driven storytelling (Betty is warm, Mario is enthusiastic)
-- Chip the AI teaching companion explains concepts through narrative context
-- Memorable clients with real problems to solve
-
-### 🎓 Real Learning Outcomes
-- Write JavaScript that actually executes (no toy language)
-- Scale from variables to complete applications
-- Learn professional development patterns
-- Build a portfolio of projects by the end
-
-### 📊 Progression Systems
-- **Money** - Earn cash to make rent, unlock new opportunities
-- **Reputation** - Build credibility to access higher-tier clients
-- **Expertise** - Granular skill tracking (const, let, loops, functions, etc.)
-
----
-
-## 🏗️ Tech Stack
-
-| Category | Technology |
-|----------|-----------|
-| **Framework** | Next.js 16 (App Router) |
-| **Language** | TypeScript (strict mode) |
-| **UI** | React 19, Tailwind CSS 4 |
-| **Code Editor** | Monaco Editor |
-| **State Management** | Zustand |
-| **Content** | YAML (narrative) + JSON (technical) |
-| **Deployment** | Vercel (web browser) |
-
----
-
 ## 📁 Project Structure
 
 ```
@@ -118,31 +158,6 @@ gigquest/
 ├── _bmad-output/         # Generated docs (GDD, architecture)
 └── docs/                 # Additional documentation
 ```
-
----
-
-## 🎨 Design Pillars
-
-These five pillars guide all development decisions:
-
-1. **Authentic Code Editor** - Monaco mimics professional workflows
-2. **Real JavaScript** - Executable code teaches transferable skills
-3. **Visual Novel Presentation** - Phoenix Wright-style character-driven storytelling
-4. **Pro Developer Teaching** - Industry-standard practices, expert pedagogy
-5. **Concise Gameplay** - Tight loops, clear goals, satisfying progress
-
----
-
-## 🎯 Target Audience
-
-**Age:** All ages (13+ for reading comprehension)
-**Experience:** Complete beginners to expert developers seeking fresh perspective
-**Motivation:**
-- Want to become a programmer (career change, exploration)
-- Tried tutorials but found them boring
-- Curious what it feels like to code
-- Want narrative motivation and context
-- Experienced devs seeking "beginner's mind" and opinionated patterns
 
 ---
 
@@ -189,26 +204,11 @@ This is currently a solo side project, but contributions are welcome! If you'd l
 
 ---
 
-## 📊 Performance Targets
-
-- **60fps** UI interactions
-- **<100ms** code execution feedback
-- **<3s** initial page load
-- **<2s** Monaco editor ready
-
----
-
 ## 📖 Documentation
 
 - **CLAUDE.md** - Comprehensive AI agent context (start here for development)
 - **_bmad-output/gdd.md** - Game Design Document (vision, goals, mechanics)
 - **src/types/game.ts** - Core type definitions and data models
-
----
-
-## 🎮 Live Demo
-
-Coming soon at [gigquest.dev](https://gigquest.dev)
 
 ---
 
